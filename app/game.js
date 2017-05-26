@@ -1,4 +1,6 @@
+var Discord = require("discord.js");
 var fs = require("fs");
+var _ = require("underscore");
 
 module.exports = class Game {
 	constructor(client) {
@@ -29,7 +31,7 @@ module.exports = class Game {
 	*/
 	init(params, msg) {
 		var hsk_level = params[1] || 1;
-		var characters = params[2] || this.lang[hsk_level].length;
+		var characters = parseInt(params[2]) || this.lang[hsk_level].length;
 
 		// Validation
 		if (this.valid_options.indexOf(params[1]) === -1) {
@@ -39,7 +41,6 @@ module.exports = class Game {
 
 		var hsk_length = this.lang[hsk_level].length;
 		if (!Number.isInteger(characters) 
-			|| characters < hsk_length 
 			|| characters > hsk_length 
 			|| characters <= 0) {
 				msg.reply(`the amount must be between 1 and ${hsk_length}`)
@@ -52,13 +53,19 @@ module.exports = class Game {
 			round: 1,
 			hsk_level: hsk_level,
 			started: Date.now(),
-			rounds: {},
+			total_rounds: characters,
+			characters_left: _.range(0, characters),
+			rounds: [],
 			results: {}
 		}
 
-		msg
-			.reply(`Now practicing HSK ${params[1]} (${characters} characters)`)
-			.then(msg => this.start_round(msg, params));
+		var embed = new Discord.RichEmbed()
+		.setTitle(`HSK ${params[1]} Practice Initiated`)
+  	.setColor(0x00AE86)
+		.setDescription(`Game initiated by ${msg.author}, use !hsk stop to cancel`)
+
+		msg.channel.send({embed})
+			.then(msg => this.start_round(1, msg));
 	}
 
 	/*
@@ -67,12 +74,50 @@ module.exports = class Game {
 	end_game(msg) {
 		var game_key = msg.guild + msg.channel;
 		delete this.games[game_key];
-		msg.reply('has ended the game');
+		msg.channel.send(`${msg.author} has ended the game`);
 	}
 
-	start_round(msg, params) {
-		var random_entry = this.lang[params[1]][30];
-		var random_data = random_entry.split('\t');
-		msg.reply(`Translate: ${random_data[0]} / ${random_data[0]}`);
+	start_round(i, msg) {		
+		var game_key = msg.guild + msg.channel;
+		var _game = this.games[game_key] || null;
+		if (_game === null) return;
+
+		var character_key = _.random(0, this.lang[_game.hsk_level].length);
+		var character_line = this.lang[_game.hsk_level][character_key];
+		var character = character_line.split('\t');
+
+		msg.channel.send(`:star2: Round #${i}: Translate: ${character[0]} / ${character[1]}`);
+
+		this.games[game_key].rounds.push({
+			round: i,
+			question: `${character[0]} / ${character[1]}`,
+			answer: `${character[2]} / ${character[3]}`,
+		});
+		this.games[game_key].characters_left.splice(character_key, 1);
+
+		var _this = this;
+		setTimeout(function() {
+			_this.finish_round(i ,msg);
+		}, 5000);
+	}
+
+	finish_round(i, msg) {
+		var game_key = msg.guild + msg.channel;
+		var _game = this.games[game_key] || null;
+		if (_game === null) return;
+
+		// game over?
+		if (i == _game.total_rounds) {
+			this.end_game(msg);
+			return;
+		}
+
+		// find all the answers
+		// determine which are correct
+		// determine which are wrong
+
+		// next round
+		this.games[game_key].round++;
+		this.start_round(this.games[game_key].round, msg);
 	}
 }

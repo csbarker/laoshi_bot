@@ -9,6 +9,7 @@
   "author": "Callum Barker",
   "license": "ISC",
   "dependencies": {
-    "discord.js": "^11.1.0"
+    "discord.js": "^11.1.0",
+    "underscore": "^1.8.3"
   }
 }
