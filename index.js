@@ -10,6 +10,8 @@ client.on('ready', () => {
 });
 
 client.on('message', msg => {
+	if (msg.author == client.user) return; 
+
 	cmd = msg.content;
 
 	/* Commands */
@@ -26,6 +28,11 @@ client.on('message', msg => {
 	
 		params = msg.content.toLowerCase().split(" ");
 		game.init(params, msg);
+	} else {
+		// Record responses
+		if (game.in_progress(msg.guild, msg.channel)) {
+			game.record_response(msg);
+		}
 	}
 });
 
