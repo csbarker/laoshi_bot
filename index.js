@@ -7,6 +7,8 @@ var game = new Game(client);
 
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.username}!`);
+  //client.user.setAvatar('./learnchinese9.png')
+  client.user.setGame('!hsk [1-6]')
 });
 
 client.on('message', msg => {
@@ -16,6 +18,11 @@ client.on('message', msg => {
 
 	/* Commands */
 	if (cmd.substr(0,4) === '!hsk') {
+		if (cmd === '!hsk count' || cmd === '!hsk info') {
+			msg.channel.send('HSK test consists of 2500 words / 2663 symbols. See https://en.wikipedia.org/wiki/Hanyu_Shuiping_Kaoshi for more information');
+			return;
+		}
+
 		if (game.in_progress(msg.guild, msg.channel)) {
 			if (cmd === '!hsk stop') {
 				game.end_game(msg);
@@ -30,7 +37,7 @@ client.on('message', msg => {
 		game.init(params, msg);
 	} else {
 		// Record responses
-		if (game.in_progress(msg.guild, msg.channel)) {
+		if (cmd.substr(0,1) === '.' && game.in_progress(msg.guild, msg.channel)) {
 			game.record_response(msg);
 		}
 	}

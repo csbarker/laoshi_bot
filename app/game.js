@@ -81,14 +81,16 @@ module.exports = class Game {
 		var _game = this.games[game_key] || null;
 		if (_game === null) return;
 
+		var rounds = this.games[game_key].total_rounds;
+
 		var character_key = _.random(0, this.lang[_game.hsk_level].length);
 		var character_line = this.lang[_game.hsk_level][character_key];
 		var character = character_line.split('\t');
 		var character_english = character[4].trim().split('; ');
 
 		var start_embed = new Discord.RichEmbed()
-			.setTitle(`Round #${i}`)
-			.setDescription('To play, type the translation for the following character in pinyin or english.')
+			.setTitle(`Round #${i} / ${rounds}`)
+			.setDescription('To play, type  "." followed by the translation for the following character in pinyin or english.')
 	  	.setColor('GREEN')
   		.addField('Characters (Simplified/Traditional):', `${character[0]} / ${character[1]}`);
 
@@ -125,8 +127,6 @@ module.exports = class Game {
 			return;
 		}
 
-		//this.determine_round_results(i, msg);
-
 		// next round
 		this.games[game_key].round++;
 		this.start_round(this.games[game_key].round, msg);
@@ -142,9 +142,9 @@ module.exports = class Game {
 
 		_game.rounds[current_round].players_answers[msg.author] = {
 			name: msg.author,
-			answer: msg.content.toLowerCase(),
+			answer: msg.content.toLowerCase().substring(1),
 			submitted: _.now(),
-			correct: (_game.rounds[current_round].answers.indexOf(msg.content.toLowerCase()) !== -1)
+			correct: (_game.rounds[current_round].answers.indexOf(msg.content.toLowerCase().substring(1)) !== -1)
 		};
 	}
 
