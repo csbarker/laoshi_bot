@@ -22,6 +22,10 @@ client.on('message', msg => {
 			msg.channel.send('HSK test consists of 2500 words / 2663 symbols. See https://en.wikipedia.org/wiki/Hanyu_Shuiping_Kaoshi for more information');
 			return;
 		}
+		if (cmd === '!hsk top') {
+			game.output_highscores(msg);
+			return;
+		}
 
 		if (game.in_progress(msg.guild, msg.channel)) {
 			if (cmd === '!hsk stop') {

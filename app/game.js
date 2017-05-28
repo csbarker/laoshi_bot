@@ -199,6 +199,7 @@ module.exports = class Game {
 				// new player (glboal)
 				if(!_self.players.hasOwnProperty(pa.name)) {
 					_self.players[pa.name] = {
+						name: pa.name,
 						score: 0
 					}
 				}
@@ -236,6 +237,27 @@ module.exports = class Game {
 	  	.setColor('RED')
 	  	.setFooter('Use !hsk [level] [characters] to start a new game', 'http://i.imgur.com/w1vhFSR.png')
   		.addField('Results: ', player_results);
+
+		msg.channel.send({embed: results_embed});
+	}
+
+	output_highscores(msg) {
+		var scores_sorted = '';
+		var row_template = _.template(":trophy: <%= name %>: <%= score %>\n");
+
+		if (Object.keys(this.players).length <= 0) {
+			scores_sorted += ':zzz: no participants yet';
+		} else {
+			var highscores = _.sortBy(this.players, 'score');
+			_.each(highscores, function(data) {
+				scores_sorted += row_template(data);
+			});
+		}
+
+		var results_embed = new Discord.RichEmbed()
+			.setTitle(`HSK Highscores`)
+	  	.setColor('BLUE')
+  		.addField('Results: ', scores_sorted);
 
 		msg.channel.send({embed: results_embed});
 	}
