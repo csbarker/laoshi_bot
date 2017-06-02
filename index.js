@@ -1,9 +1,20 @@
+// Required
 const Discord = require("discord.js");
 const client = new Discord.Client();
 const config = require('./config');
 
+// Database 
+var db = require("firebase-admin");
+var serviceAccount = require("./firebase_key.json");
+
+db.initializeApp({
+  credential: db.credential.cert(serviceAccount),
+  databaseURL: "https://laoshi-d5023.firebaseio.com"
+});
+
+// Game
 var Game = require('./app/game');
-var game = new Game(client);
+var game = new Game(client, db);
 
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.username}!`);

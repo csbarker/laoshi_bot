@@ -1,5 +1,6 @@
 # App specific
 config.js
+firebase_key.json
 
 #################
 ## Eclipse

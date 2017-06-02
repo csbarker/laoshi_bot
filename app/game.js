@@ -3,15 +3,17 @@ var fs = require("fs");
 var _ = require("underscore");
 
 module.exports = class Game {
-	constructor(client) {
+	constructor(client, db) {
 		this.client = client;
 		this.valid_options = ['1','2','3','4','5','6']
 		this.players = {};
 		this.lang = {};
-		this.games = {
-			//"HSK_Bot_Test<#317297114155843584>": 'true'
-		};
+		this.games = {};
 
+		var _db = db.database();
+		this.db = _db.ref("laoshi/data/users");
+
+		// load lang
 		for (var i = 0; i <= this.valid_options.length - 1; i++) {
 			var key = this.valid_options[i];
 			this.lang[key] = fs
@@ -19,6 +21,20 @@ module.exports = class Game {
 				.toString('utf-8')
 				.split('\n');
 		}
+
+		// load players
+		var _self = this;
+		this.db.on("value", function(snapshot) {
+			var temp = snapshot.val();
+			var player_id = Object.keys(temp)[0];
+
+			_self.players[player_id] = {
+				name: temp[player_id].name,
+				score: temp[player_id].score
+			};
+		}, function (errorObject) {
+			console.log("The read failed: " + errorObject.code);
+		});
 	}
 
 	in_progress(guild, channel) {
@@ -59,9 +75,9 @@ module.exports = class Game {
 		}
 
 		var embed = new Discord.RichEmbed()
-		.setTitle(`HSK ${params[1]} Practice Initiated (${characters} characters)`)
-  	.setColor(0x00AE86)
-		.setDescription(`Game initiated by ${msg.author}, use !hsk stop to cancel`)
+			.setTitle(`HSK ${params[1]} Practice Initiated (${characters} characters)`)
+			.setColor(0x00AE86)
+			.setDescription(`Game initiated by ${msg.author}, use !hsk stop to cancel`)
 
 		msg.channel.send({embed})
 			.then(msg => this.start_round(1, msg));
@@ -72,6 +88,9 @@ module.exports = class Game {
 	*/
 	end_game(msg) {
 		var game_key = msg.guild + msg.channel;
+
+		this.output_game_results(msg);
+
 		delete this.games[game_key];
 		msg.channel.send(`${msg.author} has ended the game`);
 	}
@@ -122,7 +141,6 @@ module.exports = class Game {
 
 		// game over?
 		if (i == _game.total_rounds) {
-			this.output_game_results(msg);
 			this.end_game(msg);
 			return;
 		}
@@ -138,10 +156,11 @@ module.exports = class Game {
 		if (_game === null) return;
 
 		var current_round = this.games[game_key].round;
-		if(_game.rounds[current_round].players_answers.hasOwnProperty(msg.author)) return;
+		if(_game.rounds[current_round].players_answers.hasOwnProperty(msg.author.id)) return;
 
-		_game.rounds[current_round].players_answers[msg.author] = {
-			name: msg.author,
+		_game.rounds[current_round].players_answers[msg.author.id] = {
+			id: msg.author.id,
+			name: msg.author.username,
 			answer: msg.content.toLowerCase().substring(1),
 			submitted: _.now(),
 			correct: (_game.rounds[current_round].answers.indexOf(msg.content.toLowerCase().substring(1)) !== -1)
@@ -197,15 +216,17 @@ module.exports = class Game {
 			// and each rounds answers
 			_.each(round.players_answers, function(pa) {
 				// new player (glboal)
-				if(!_self.players.hasOwnProperty(pa.name)) {
-					_self.players[pa.name] = {
+				if(!_self.players.hasOwnProperty(pa.id)) {
+					_self.players[pa.id] = {
+						id: pa.id,
 						name: pa.name,
 						score: 0
 					}
 				}
 				// new player (local game)
-				if(!_game.results.hasOwnProperty(pa.name)) {
-					_game.results[pa.name] = {
+				if(!_game.results.hasOwnProperty(pa.id)) {
+					_game.results[pa.id] = {
+						id: pa.id,
 						name: pa.name,
 						score: 0
 					}
@@ -214,8 +235,16 @@ module.exports = class Game {
 
 				if (!pa.correct) return;
 
-				_game.results[pa.name].score += 10; // local
-				_self.players[pa.name].score += 10; // global
+				_game.results[pa.id].score += 10; // local
+				_self.players[pa.id].score += 10; // global
+			});
+		});
+
+		// sync players scores
+		_.each(_game.results, function(player) {
+			_self.db.child(player.id).set({
+				name: player.name,
+				score: _self.players[player.id].score
 			});
 		});
 
@@ -227,7 +256,7 @@ module.exports = class Game {
 			player_results += ':zzz: no points awarded this game :sweat_smile:';
 		} else {
 			_.each(_game.results, function(data) {
-				data.global_score = _self.players[data.name].score;
+				data.global_score = _self.players[data.id].score;
 				player_results += row_template(data);
 			});
 		}
