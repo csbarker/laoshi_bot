@@ -4,13 +4,8 @@ const client = new Discord.Client();
 const config = require('./config');
 
 // Database 
-var db = require("firebase-admin");
-var serviceAccount = require("./firebase_key.json");
-
-db.initializeApp({
-  credential: db.credential.cert(serviceAccount),
-  databaseURL: "https://laoshi-d5023.firebaseio.com"
-});
+var sqlite3 = require('sqlite3').verbose();
+var db = new sqlite3.Database('laoshi.db');
 
 // Game
 var Game = require('./app/game');
@@ -18,7 +13,6 @@ var game = new Game(client, db);
 
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.username}!`);
-  //client.user.setAvatar('./learnchinese9.png')
   client.user.setGame('!hsk [1-6]')
 });
 
@@ -51,7 +45,6 @@ client.on('message', msg => {
 		params = msg.content.toLowerCase().split(" ");
 		game.init(params, msg);
 	} else {
-		// Record responses
 		if (cmd.substr(0,1) === '.' && game.in_progress(msg.guild, msg.channel)) {
 			game.record_response(msg);
 		}

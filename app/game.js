@@ -9,9 +9,7 @@ module.exports = class Game {
 		this.players = {};
 		this.lang = {};
 		this.games = {};
-
-		var _db = db.database();
-		this.db = _db.ref("laoshi/data/users");
+		this.db = db;
 
 		// load lang
 		for (var i = 0; i <= this.valid_options.length - 1; i++) {
@@ -24,17 +22,12 @@ module.exports = class Game {
 
 		// load players
 		var _self = this;
-		this.db.on("value", function(snapshot) {
-			var temp = snapshot.val();
-			var player_id = Object.keys(temp)[0];
-
-			_self.players[player_id] = {
-				name: temp[player_id].name,
-				score: temp[player_id].score
+		db.each("SELECT * FROM players", function(err, row) { 
+			_self.players[row.id] = {
+				name: row.name,
+				score: row.score
 			};
-		}, function (errorObject) {
-			console.log("The read failed: " + errorObject.code);
-		});
+		 });
 	}
 
 	in_progress(guild, channel) {
@@ -110,8 +103,8 @@ module.exports = class Game {
 		var start_embed = new Discord.RichEmbed()
 			.setTitle(`Round #${i} / ${rounds}`)
 			.setDescription('To play, type  "." followed by the translation for the following character in pinyin or english.')
-	  	.setColor('GREEN')
-  		.addField('Characters (Simplified/Traditional):', `${character[0]} / ${character[1]}`);
+			.setColor('GREEN')
+			.addField('Characters (Simplified/Traditional):', `${character[0]} / ${character[1]}`);
 
 		msg.channel.send({embed: start_embed});
 
@@ -191,15 +184,15 @@ module.exports = class Game {
 
 		var results_embed = new Discord.RichEmbed()
 			.setTitle(`Round #${i} - Complete`)
-	  	.setColor('GOLD')
-	  	.setFooter(next_round_string, 'http://i.imgur.com/w1vhFSR.png')
-  		.addField('Characters (Simplified/Traditional): ', _round.question.join('/'), true)
-  		.addField('Translations (Pinyin/English): ', _round.answers.join(', '), true)
-  		.addField(
-  			'Tools: ', 
-  			`[Example Sentences](http://ce.linedict.com/dict.html#/cnen/example?query=${char_for_url})`
-			)
-  		.addField('Results: ', player_results);
+			.setColor('GOLD')
+			.setFooter(next_round_string, 'http://i.imgur.com/w1vhFSR.png')
+			.addField('Characters (Simplified/Traditional): ', _round.question.join('/'), true)
+			.addField('Translations (Pinyin/English): ', _round.answers.join(', '), true)
+			.addField(
+				'Tools: ', 
+				`[Example Sentences](http://ce.linedict.com/dict.html#/cnen/example?query=${char_for_url})`
+				)
+			.addField('Results: ', player_results);
 
 		msg.channel.send({embed: results_embed});
 	}
@@ -212,11 +205,14 @@ module.exports = class Game {
 		// go through each round
 		var _self = this;
 		_.each(_game.rounds, function(round) {
-			if(Object.keys(round.players_answers).length <= 0) return; // no players
-			// and each rounds answers
+			if(Object.keys(round.players_answers).length <= 0) return;
+
 			_.each(round.players_answers, function(pa) {
-				// new player (glboal)
+				// new player (global)
 				if(!_self.players.hasOwnProperty(pa.id)) {
+					_self.db.serialize(function() {
+						_self.db.run("INSERT INTO players VALUES (?, ?, ?)", [pa.id, pa.name, 0]);
+					});
 					_self.players[pa.id] = {
 						id: pa.id,
 						name: pa.name,
@@ -232,7 +228,6 @@ module.exports = class Game {
 					}
 				}
 
-
 				if (!pa.correct) return;
 
 				_game.results[pa.id].score += 10; // local
@@ -242,9 +237,9 @@ module.exports = class Game {
 
 		// sync players scores
 		_.each(_game.results, function(player) {
-			_self.db.child(player.id).set({
-				name: player.name,
-				score: _self.players[player.id].score
+			_self.db.serialize(function() {
+				let real_player = _self.players[player.id];
+				_self.db.run('UPDATE players SET score = ? WHERE id = ?', [real_player.score, player.id]);
 			});
 		});
 
@@ -263,9 +258,9 @@ module.exports = class Game {
 
 		var results_embed = new Discord.RichEmbed()
 			.setTitle(`HSK Practice Complete`)
-	  	.setColor('RED')
-	  	.setFooter('Use !hsk [level] [characters] to start a new game', 'http://i.imgur.com/w1vhFSR.png')
-  		.addField('Results: ', player_results);
+			.setColor('RED')
+			.setFooter('Use !hsk [level] [characters] to start a new game', 'http://i.imgur.com/w1vhFSR.png')
+			.addField('Results: ', player_results);
 
 		msg.channel.send({embed: results_embed});
 	}
@@ -285,8 +280,8 @@ module.exports = class Game {
 
 		var results_embed = new Discord.RichEmbed()
 			.setTitle(`HSK Highscores`)
-	  	.setColor('BLUE')
-  		.addField('Results: ', scores_sorted);
+			.setColor('BLUE')
+			.addField('Results: ', scores_sorted);
 
 		msg.channel.send({embed: results_embed});
 	}
