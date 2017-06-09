@@ -285,4 +285,19 @@ module.exports = class Game {
 
 		msg.channel.send({embed: results_embed});
 	}
+
+	// !hsk suggest [character] [suggestion]
+	suggest(msg, params) {
+		if (params.length < 4) {
+			msg.reply('Whoops, I didn\'t understand that. Please use !hsk suggest [character] [translation]');
+			return;
+		}
+
+		let character = params[2] || null;
+		let translation = params[3] || null;
+
+		var me = this.client.users.get("201650154867130368");
+		me.send(`New suggestion from ${msg.author}: ${character} -> ${translation}`);
+		msg.reply('Thanks! Your suggestion has been noted :)')
+	}
 }
