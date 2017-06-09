@@ -1,6 +1,6 @@
 # App specific
 config.js
-firebase_key.json
+laoshi.db
 
 #################
 ## Eclipse
