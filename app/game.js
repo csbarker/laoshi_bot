@@ -272,8 +272,10 @@ module.exports = class Game {
 		if (Object.keys(this.players).length <= 0) {
 			scores_sorted += ':zzz: no participants yet';
 		} else {
-			var highscores = _.sortBy(this.players, 'score');
+			var highscores = _.sortBy(this.players, 'score').reverse();
 			_.each(highscores, function(data) {
+				if (data.score <= 0) return;
+				data.score = data.score.toLocaleString();
 				scores_sorted += row_template(data);
 			});
 		}
@@ -286,7 +288,7 @@ module.exports = class Game {
 		msg.channel.send({embed: results_embed});
 	}
 
-	// !hsk suggest [character] [suggestion]
+	// !hsk suggest [character] [translation]
 	suggest(msg, params) {
 		if (params.length < 4) {
 			msg.reply('Whoops, I didn\'t understand that. Please use !hsk suggest [character] [translation]');
