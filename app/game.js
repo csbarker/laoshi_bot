@@ -244,7 +244,7 @@ module.exports = class Game {
 		});
 
 		// now that we have updated the players scores we can output them
-		var row_template = _.template(":trophy: <%= name %>: +<%= score %> (<%= global_score %>)\n");
+		var row_template = _.template(":trophy: <%= name %>: +<%= score %> (<%= global_score_formatted %>)\n");
 		var player_results = '';
 		
 		if (Object.keys(_game.results).length <= 0) {
@@ -252,6 +252,7 @@ module.exports = class Game {
 		} else {
 			_.each(_game.results, function(data) {
 				data.global_score = _self.players[data.id].score;
+				data.global_score_formatted = data.global_score.toLocaleString();
 				player_results += row_template(data);
 			});
 		}
@@ -267,7 +268,7 @@ module.exports = class Game {
 
 	output_highscores(msg) {
 		var scores_sorted = '';
-		var row_template = _.template(":trophy: <%= name %>: <%= score %>\n");
+		var row_template = _.template(":trophy: <%= name %>: <%= score_formatted %>\n");
 
 		if (Object.keys(this.players).length <= 0) {
 			scores_sorted += ':zzz: no participants yet';
@@ -275,7 +276,7 @@ module.exports = class Game {
 			var highscores = _.sortBy(this.players, 'score').reverse();
 			_.each(highscores, function(data) {
 				if (data.score <= 0) return;
-				data.score = data.score.toLocaleString();
+				data.score_formatted = data.score.toLocaleString();
 				scores_sorted += row_template(data);
 			});
 		}
