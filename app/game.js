@@ -122,7 +122,7 @@ module.exports = class Game {
 		var _this = this;
 		setTimeout(function() {
 			_this.finish_round(i ,msg);
-		}, 15000);
+		}, 10000);
 	}
 
 	finish_round(i, msg) {
