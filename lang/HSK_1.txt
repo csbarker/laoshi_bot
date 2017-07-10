@@ -1,28 +1,28 @@
 ﻿爱	愛	ai4	ài	love
 八	八	ba1	bā	eight
-爸爸	爸爸	ba4ba5	bàba	Dad
+爸爸	爸爸	ba4ba5	bàba	dad; father
 杯子	杯子	bei1zi5	bēizi	cup; glass
-北京	北京	Bei3jing1	Běijīng	Beijing
-本	本	ben3	běn	measure word for books
+北京	北京	Bei3jing1	Běijīng	beijing
+本	本	ben3	běn	measure word for books; book
 不客气	不客氣	bu2ke4qi5	bú kèqi	you're welcome; don't be polite
 不	不	bu4	bù	no; not
-菜	菜	cai4	cài	dish (type of food); vegetables
+菜	菜	cai4	cài	dish; vegetables
 茶	茶	cha2	chá	tea
 吃	吃	chi1	chī	eat
 出租车	出租車	chu1zu1che1	chūzūchē	taxi; cab
-打电话	打電話	da3 dian4hua4	dǎ diànhuà	make a phone call
+打电话	打電話	da3 dian4hua4	dǎ diànhuà	make a phone call; phone call
 大	大	da4	dà	big; large
 的	的	de5	de	indicates possession, like adding 's to a noun
 点	點	dian3	diǎn	a dot; a little; o'clock
 电脑	電腦	dian4nao3	diànnǎo	computer
-电视	電視	dian4shi4	diànshì	television; TV
+电视	電視	dian4shi4	diànshì	television; tv
 电影	電影	dian4ying3	diànyǐng	movie; film
 东西	東西	dong1xi5	dōngxi	things; stuff
 都	都	dou1	dōu	all; both
-读	讀	du2	dú	to read; to study
+读	讀	du2	dú	to read; to study; read; study
 对不起	對不起	dui4bu5qi3	duìbuqǐ	sorry
 多	多	duo1	duō	many
-多少	多少	duo1shao5	duōshao	how much?; how many?
+多少	多少	duo1shao5	duōshao	how much?; how many?;
 儿子	兒子	er2zi5	érzi	son
 二	二	er4	èr	two
 饭店	飯店	fan4dian4	fàndiàn	restaurant; hotel
@@ -32,21 +32,21 @@
 个	個	ge5	ge	general measure word
 工作	工作	gong1zuo4	gōngzuò	work; a job
 狗	狗	gou3	gǒu	dog
-汉语	漢語	Han4yu3	Hànyǔ	Chinese language
+汉语	漢語	han4yu3	hànyǔ	chinese language; chinese
 好	好	hao3	hǎo	good
 号	號	hao4	hào	number; day of a month
-喝	喝	he1	hē	to drink
+喝	喝	he1	hē	to drink; drink
 和	和	he2	hé	and; with
 很	很	hen3	hěn	very; quite
 后面	後面	hou4mian5	hòumian	back; behind
-回	回	hui2	huí	to return; to reply; to go back
+回	回	hui2	huí	to return; to reply; to go back; reply; go back
 会	會	hui4	huì	know how to
 几	幾	ji3	jǐ	how many; several; a few
 家	家	jia1	jiā	family; home
 叫	叫	jiao4	jiào	to be called
 今天	今天	jin1tian1	jīntiān	today
 九	九	jiu3	jiǔ	nine
-开	開	kai1	kāi	to open; to start; to operate (a vehicle)
+开	開	kai1	kāi	to open; to start; to operate (a vehicle); start; open
 看	看	kan4	kàn	see; look at; to watch
 看见	看見	kan4jian4	kànjiàn	see; catch sight of
 块	塊	kuai4	kuài	lump; piece; sum of money
@@ -54,11 +54,11 @@
 老师	老師	lao3shi1	lǎoshī	teacher
 了	了	le5	le	indicates a completed or finished action
 冷	冷	leng3	lěng	cold
-里	裡	li3	lǐ	inside; Chinese mile (~.5 km)
+里	裡	li3	lǐ	inside; chinese mile (~.5 km); mile; chinese mile
 六	六	liu4	liù	six
 妈妈	媽媽	ma1ma5	māma	mom; mum
 吗	嗎	ma5	ma	indicates a yes/no question (added to a statement)
-买	買	mai3	mǎi	to buy
+买	買	mai3	mǎi	to buy; buy
 猫	貓	mao1	māo	cat
 没关系	沒關系	mei2 guan1xi5	méi guānxi	it doesn't matter; never mind
 没有	沒有	mei2you3	méiyǒu	not have; there is not
@@ -66,11 +66,11 @@
 明天	明天	ming2tian1	míngtiān	tomorrow
 名字	名字	ming2zi5	míngzi	name
 哪	哪	na3	nǎa	which; how
-哪儿	哪兒	na3r5	nǎr	where? (Beijing accent)
+哪儿	哪兒	na3r5	nǎr	where?; where
 那	那	na4	nà	that; then
-呢	呢	ne5	ne	indicates a question; how about...?;
+呢	呢	ne5	ne	indicates a question; how about?
 能	能	neng2	néng	can; be able
-你	你	ni3	nǐ	you (singular)
+你	你	ni3	nǐ	you
 年	年	nian2	nián	year
 女儿	女兒	nv3'er2	nǚ'ér	daughter
 朋友	朋友	peng2you5	péngyou	friend
@@ -83,49 +83,49 @@
 去	去	qu4	qù	go; to leave
 热	熱	re4	rè	heat; hot
 人	人	ren2	rén	person; man; people
-认识	認識	ren4shi5	rènshi	recognize; know (a person)
+认识	認識	ren4shi5	rènshi	recognize; know
 三	三	san1	sān	three
 商店	商店	shang1dian4	shāngdiàn	shop; store
 上	上	shang4	shàng	above; up
-上午	上午	shang4wu3	shàngwǔ	late morning (before noon)
+上午	上午	shang4wu3	shàngwǔ	late morning
 少	少	shao3	shǎo	few; little
 谁	誰	shei2	shéi	who
-什么	什麼	shen2me5	shénme	what? (replaces the noun to turn a statement into a question)
+什么	什麼	shen2me5	shénme	what?
 十	十	shi2	shí	ten
 时候	時候	shi2hou5	shíhou	time
 是	是	shi4	shì	be; is; are; am
 书	書	shu1	shū	book; letter
 水	水	shui3	shuǐ	water
 水果	水果	shui3guo3	shuǐguǒ	fruit
-睡觉	睡覺	shui4 jiao4	shuì jiào	to sleep; go to bed
+睡觉	睡覺	shui4 jiao4	shuì jiào	to sleep; go to bed; sleep
 说	說	shuo1	shuō	speak
 四	四	si4	sì	four
 岁	歲	sui4	suì	years old; age
 他	他	ta1	tā	he; him
 她	她	ta1	tā	she
-太	太	tai4	tài	too (much)
+太	太	tai4	tài	too (much); too
 天气	天氣	tian1qi4	tiānqì	weather
 听	聽	ting1	tīng	listen; hear
 同学	同學	tong2xue2	tóngxué	fellow student; schoolmate
-喂	喂	wei4	wèi	hello (on the phone)
-我	我	wo3	wǒ	I; me
+喂	喂	wei4	wèi	hello
+我	我	wo3	wǒ	i; me
 我们	我們	wo3men5	wǒmen	we; us
 五	五	wu3	wǔ	five
-喜欢	喜歡	xi3huan5	xǐhuan	to like
+喜欢	喜歡	xi3huan5	xǐhuan	to like; like
 下	下	xia4	xià	fall; below
 下午	下午	xia4wu3	xiàwǔ	afternoon
-下雨	下雨	xia4yu3	xiàyǔ	to rain
-先生	先生	xian1sheng5	xiānsheng	Mr.; Sir
+下雨	下雨	xia4yu3	xiàyǔ	to rain; rain
+先生	先生	xian1sheng5	xiānsheng	mr; sir;
 现在	現在	xian4zai4	xiànzài	now
 想	想	xiang3	xiǎng	think; believe; suppose; would like to
 小	小	xiao3	xiǎo	small; young
-小姐	小姐	xiao3jie5	xiǎojie	young lady; miss; Ms.
+小姐	小姐	xiao3jie5	xiǎojie	young lady; miss; ms
 些	些	xie1	xiē	some; few; several
-写	寫	xie3	xiě	to write; to compose
+写	寫	xie3	xiě	to write; to compose; write; compose
 谢谢	謝謝	xie4xie5	xièxie	thank you
 星期	星期	xing1qi1	xīngqī	week
 学生	學生	xue2sheng5	xuésheng	student
-学习	學習	xue2xi2	xuéxí	learn; to study
+学习	學習	xue2xi2	xuéxí	learn; to study; study
 学校	學校	xue2xiao4	xuéxiào	school
 一	一	yi1	yī	one; once; a
 衣服	衣服	yi1fu5	yīfu	clothes
@@ -140,9 +140,9 @@
 怎么	怎麼	zen3me5	zěnme	how?
 怎么样	怎麼樣	zen3me5yang4	zěnmeyàng	how about?; how is/was it?
 这	這	zhe4	zhè	this
-中国	中國	Zhong1guo2	Zhōngguó	China
+中国	中國	zhong1guo2	zhōngguó	china
 中午	中午	zhong1wu3	zhōngwǔ	noon; midday
-住	住	zhu4	zhù	to live; reside; to stop
+住	住	zhu4	zhù	to live; reside; to stop; stop
 桌子	桌子	zhuo1zi5	zhuōzi	table; desk
 字	字	zi4	zì	letter; character
 昨天	昨天	zuo2tian1	zuótiān	yesterday
