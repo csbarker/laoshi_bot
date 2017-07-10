@@ -97,6 +97,9 @@ module.exports = class Game {
 
 		var character_key = _.random(0, this.lang[_game.hsk_level].length);
 		var character_line = this.lang[_game.hsk_level][character_key];
+
+		console.log(character_line); // for debugging
+
 		var character = character_line.split('\t');
 		var character_english = character[4].trim().split('; ');
 
