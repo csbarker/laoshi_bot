@@ -95,7 +95,7 @@ module.exports = class Game {
 
 		var rounds = this.games[game_key].total_rounds;
 
-		var character_key = _.random(0, this.lang[_game.hsk_level].length);
+		var character_key = _.random(0, this.lang[_game.hsk_level].length - 1);
 		var character_line = this.lang[_game.hsk_level][character_key];
 
 		console.log(character_line); // for debugging
