@@ -305,7 +305,7 @@ module.exports = class Game {
 		if (character !== null) {
 			var fullstring = params.join(' ');
 			var split = fullstring.indexOf(character + ' '); 
-			var translation = fullstring.slice(split + (character.length + 2));
+			var translation = fullstring.slice(split + (character.length + 1));
 
 			var me = this.client.users.get("201650154867130368");
 			me.send(`New suggestion from ${msg.author}: ${character} -> ${translation}`);
