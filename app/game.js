@@ -279,6 +279,7 @@ module.exports = class Game {
 			var highscores = _.sortBy(this.players, 'score').reverse();
 			_.each(highscores, function(data) {
 				if (data.score <= 0) return;
+				if (scores_sorted.length >= 2000) return;
 				data.score_formatted = data.score.toLocaleString();
 				scores_sorted += row_template(data);
 			});
