@@ -301,10 +301,15 @@ module.exports = class Game {
 		}
 
 		let character = params[2] || null;
-		let translation = params[3] || null;
 
-		var me = this.client.users.get("201650154867130368");
-		me.send(`New suggestion from ${msg.author}: ${character} -> ${translation}`);
-		msg.reply('Thanks! Your suggestion has been noted :)')
+		if (character !== null) {
+			var fullstring = params.join(' ');
+			var split = fullstring.indexOf(character); 
+			var translation = fullstring.slice(split);
+
+			var me = this.client.users.get("201650154867130368");
+			me.send(`New suggestion from ${msg.author}: ${character} -> ${translation}`);
+			msg.reply('Thanks! Your suggestion has been noted :)')
+		}
 	}
 }
