@@ -2,10 +2,10 @@ var Discord = require("discord.js");
 var fs = require("fs");
 var _ = require("underscore");
 
-module.exports = class Game {
+module.exports = class hskGame {
 	constructor(client, db) {
 		this.client = client;
-		this.valid_options = ['1','2','3','4','5','6']
+		this.valid_options = ['1','2','3','4','5','6'];
 		this.players = {};
 		this.lang = {};
 		this.games = {};
@@ -30,6 +30,31 @@ module.exports = class Game {
 		 });
 	}
 
+	parse(msg) {
+		let params = msg.content.toLowerCase().split(" ");
+		let cmd = params[0];
+		let cmd2 = params[1];
+
+		if (cmd === '!hsk') {
+			switch (cmd2) {
+				case 'count':
+				case 'info':
+					msg.channel.send('HSK test consists of 2500 words / 2663 symbols. See https://en.wikipedia.org/wiki/Hanyu_Shuiping_Kaoshi for more information');
+					return;
+				case 'suggest':
+					this.suggest(msg, params);
+					return;
+				case 'top':
+					this.output_highscores(msg);
+					return;
+				default:
+					this.init(params, msg);
+			}
+		} else if (cmd.startsWith('.') && this.in_progress(msg.guild, msg.channel)) {
+			this.record_response(msg);
+		}
+	}
+
 	in_progress(guild, channel) {
 		return this.games.hasOwnProperty(guild + channel);
 	}
@@ -44,6 +69,16 @@ module.exports = class Game {
 		// Validation
 		if (this.valid_options.indexOf(params[1]) === -1) {
 			msg.reply('please select a number from 1 to 6');
+			return;
+		}
+
+		if (this.in_progress(msg.guild, msg.channel)) {
+			if (params[1] === 'stop') {
+				this.end_game(msg);
+			} else {
+				msg.reply('A game is already in progress! use !hsk stop');
+			}
+
 			return;
 		}
 
