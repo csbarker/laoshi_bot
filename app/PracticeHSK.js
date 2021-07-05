@@ -102,7 +102,7 @@ module.exports = class hskGame {
 			results: {}
 		}
 
-		var embed = new Discord.RichEmbed()
+		var embed = new Discord.MessageEmbed()
 			.setTitle(`HSK ${params[1]} Practice Initiated (${characters} characters)`)
 			.setColor(0x00AE86)
 			.setDescription(`Game initiated by ${msg.author}, use !hsk stop to cancel`)
@@ -138,7 +138,7 @@ module.exports = class hskGame {
 		var character = character_line.split('\t');
 		var character_english = character[4].trim().split('; ');
 
-		var start_embed = new Discord.RichEmbed()
+		var start_embed = new Discord.MessageEmbed()
 			.setTitle(`Round #${i} / ${rounds}`)
 			.setDescription('To play, type  "." followed by the translation for the following character in pinyin or english.')
 			.setColor('GREEN')
@@ -220,7 +220,7 @@ module.exports = class hskGame {
 			});
 		}
 
-		var results_embed = new Discord.RichEmbed()
+		var results_embed = new Discord.MessageEmbed()
 			.setTitle(`Round #${i} - Complete`)
 			.setColor('GOLD')
 			.setFooter(next_round_string, 'http://i.imgur.com/w1vhFSR.png')
@@ -295,7 +295,7 @@ module.exports = class hskGame {
 			});
 		}
 
-		var results_embed = new Discord.RichEmbed()
+		var results_embed = new Discord.MessageEmbed()
 			.setTitle(`HSK Practice Complete`)
 			.setColor('RED')
 			.setFooter('Use !hsk [level] [characters] to start a new game', 'http://i.imgur.com/w1vhFSR.png')
@@ -320,7 +320,7 @@ module.exports = class hskGame {
 			});
 		}
 
-		var results_embed = new Discord.RichEmbed()
+		var results_embed = new Discord.MessageEmbed()
 			.setTitle(`HSK Highscores`)
 			.setColor('BLUE')
 			.addField('Results: ', scores_sorted);

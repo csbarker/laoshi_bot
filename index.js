@@ -15,7 +15,7 @@ var sentenceGame = new PracticeSentences(client, db);
 
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.username}!`);
-  client.user.setGame('!hsk [1-6] or !s [hanzi]')
+  client.user.setActivity('!hsk [1-6] or !s [hanzi]')
 });
 
 client.on('message', msg => {
